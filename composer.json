@@ -1,0 +1,26 @@
+{
+  "name": "warexo/oxid7-warexo",
+  "type": "oxideshop-module",
+  "description": "Warexo Connector for Oxid 7",
+  "license": "Commercial",
+  "authors": [
+    {
+      "name": "Aggrosoft GmbH",
+      "homepage": "https://github.com/warexo"
+    }
+  ],
+  "require": {
+    "php": ">=8.0"
+  },
+  "extra": {
+    "oxideshop": {
+      "target-directory": "warexo"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Warexo\\": "../../../source/modules/warexo"
+    }
+  },
+  "version": "2.0.1"
+}
