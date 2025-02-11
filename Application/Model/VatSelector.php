@@ -2,6 +2,10 @@
 
 namespace Warexo\Application\Model;
 
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Application\Model\Country;
+
 class VatSelector extends VatSelector_parent
 {
     protected $taxValues = array(
@@ -76,14 +80,14 @@ class VatSelector extends VatSelector_parent
     public function getArticleVat(\OxidEsales\Eshop\Application\Model\Article $oArticle)
     {
         $vat = parent::getArticleVat($oArticle);
-        $oConf = agConfig::getInstance();
-        if ($oUser = agSession::getInstance()->getBasket()->getBasketUser())
+        $oConf = Registry::getConfig();
+        if ($oUser = Registry::getSession()->getBasket()->getBasketUser())
         {
             $oAddress = $oUser->getSelectedAddress();
             if ($oAddress && $oAddress->oxaddress__oxzip->value == "27498")
             {
                 $countryId = $oAddress->oxaddress__oxcountryid->value;
-                $oCountry = oxNew("oxcountry");
+                $oCountry = oxNew(Country::class);
                 $oCountry->load($countryId);
                 if ($oCountry->oxcountry__oxisoalpha2->value == "DE")
                     return 0;
@@ -91,7 +95,7 @@ class VatSelector extends VatSelector_parent
             else if (!$oAddress && $oUser->oxuser__oxzip->value == "27498")
             {
                 $countryId = $oUser->oxuser__oxcountryid->value;
-                $oCountry = oxNew("oxcountry");
+                $oCountry = oxNew(Country::class);
                 $oCountry->load($countryId);
                 if ($oCountry->oxcountry__oxisoalpha2->value == "DE")
                     return 0;
@@ -99,7 +103,7 @@ class VatSelector extends VatSelector_parent
         }
         if ($this->wawiDisableOss || !$oConf->getShopConfVar('wawiuseoss') || date('Y-m-d') < '2021-07-01')
             return $vat;
-        if ($oUser = agSession::getInstance()->getBasket()->getBasketUser())
+        if ($oUser = Registry::getSession()->getBasket()->getBasketUser())
         {
             if ($this->getUserVat($oUser) === 0)
                 return $vat;
@@ -120,7 +124,7 @@ class VatSelector extends VatSelector_parent
                         $aVatRates = $this->reducedTaxValues;
                 }
                 $countryId = $this->getVatCountry($oUser);
-                $oCountry = oxNew("oxcountry");
+                $oCountry = oxNew(Country::class);
                 $oCountry->load($countryId);
                 if (isset($aVatRates[$oCountry->oxcountry__oxisoalpha2->value]))
                     $vat = $aVatRates[$oCountry->oxcountry__oxisoalpha2->value];
@@ -134,7 +138,7 @@ class VatSelector extends VatSelector_parent
     {
         if ($oUser->oxuser__oxustid->value && strpos($oUser->oxuser__oxustid->value, 'DE') !== false)
         {
-            $oShop = agConfig::getInstance()->getActiveShop();
+            $oShop = Registry::getConfig()->getActiveShop();
             if ($oShop->oxshops__oxcountry->value == "Deutschland")
                 return false;
         }
