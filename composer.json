@@ -27,5 +27,5 @@
     "post-update-cmd": ["cp -R wawi ../../../source/", "cp -R agcore ../../../source/"],
     "post-install-cmd": ["cp -R wawi ../../../source/", "cp -R agcore ../../../source/"]
   },
-  "version": "2.0.1"
+  "version": "1.0.0"
 }
