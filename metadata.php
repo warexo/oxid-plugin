@@ -25,6 +25,7 @@ $aModule = array(
         \OxidEsales\Eshop\Application\Model\AmountPriceList::class => \Warexo\Application\Model\AmountPriceList::class,
         \OxidEsales\Eshop\Core\ViewConfig::class => \Warexo\Core\ViewConfig::class,
         \OxidEsales\Eshop\Application\Model\UserList::class => \Warexo\Application\Model\UserList::class,
+        \OxidEsales\Eshop\Application\Controller\Admin\UserList::class => \Warexo\Application\Controller\Admin\UserList::class,
         \OxidEsales\Eshop\Application\Model\BasketItem::class => \Warexo\Application\Model\BasketItem::class,
         \OxidEsales\Eshop\Application\Model\Discount::class => \Warexo\Application\Model\Discount::class,
         \OxidEsales\Eshop\Core\WidgetControl::class => \Warexo\Core\WidgetControl::class,
