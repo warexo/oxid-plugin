@@ -2,7 +2,7 @@
   "name": "aggrosoft/oxid-warexo",
   "type": "oxideshop-module",
   "description": "Warexo Connector for Oxid 7",
-  "license": "Commercial",
+  "license": "proprietary",
   "authors": [
     {
       "name": "Aggrosoft GmbH",
