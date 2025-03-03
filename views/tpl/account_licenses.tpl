@@ -1,0 +1,7 @@
+[{capture append="oxidBlock_content"}]
+    [{agextranetpage route="accountlicense" height="2000px"}]
+[{/capture}]
+[{capture append="oxidBlock_sidebar"}]
+    [{include file="page/account/inc/account_menu.tpl" active_link="licenses"}]
+[{/capture}]
+[{include file="layout/page.tpl" sidebar="Left"}]

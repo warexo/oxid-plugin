@@ -1,0 +1,7 @@
+[{capture append="oxidBlock_content"}]
+    [{agextranetpage route=$route height="2500px" pageuid=$pageuid}]
+[{/capture}]
+[{capture append="oxidBlock_sidebar"}]
+    [{include file="page/account/inc/account_menu.tpl" active_link="customgrid"}]
+[{/capture}]
+[{include file="layout/page.tpl" sidebar="Left"}]
