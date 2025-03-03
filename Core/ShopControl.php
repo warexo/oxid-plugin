@@ -205,7 +205,7 @@ class ShopControl extends ShopControl_parent
             $_GET['stoken'] = $stoken;
             $_POST['stoken'] = $stoken;
             $myConfig = $this->getConfig();
-            if (agConfig::getParameter("admfields"))
+            if (Registry::get(Request::class)->getRequestParameter("admfields"))
                 $this->_aAdminFields = explode(",", base64_decode(Registry::get(Request::class)->getRequestParameter("admfields")));
             // creating current view object
             if (method_exists($this, "getControllerClass") && strpos($controller, "\\") === FALSE)
@@ -256,13 +256,13 @@ class ShopControl extends ShopControl_parent
             $oUser = $this->getUser();
             if ($oUser->oxuser__wwupdatebasket->value)
             {
-                $oBasket = agSession::getInstance()->getBasket();
+                $oBasket = Registry::getSession()->getBasket();
                 $oBasket->load();
                 $oBasket->calculateBasket(true);
-                agSession::getInstance()->setVariable("basket", serialize($oBasket));
+                Registry::getSession()->setVariable("basket", serialize($oBasket));
                 $oUser->oxuser__wwupdatebasket = new oxField(0);
                 $oUser->save();
-                agSession::getInstance()->freeze();
+                Registry::getSession()->freeze();
 
             }
         }

@@ -31,7 +31,7 @@ class Article extends Article_parent
                 $sSelect =  'SELECT g2p.oxprice FROM oxgroup2price g2p '
                     . ' WHERE g2p.oxarticleid = '.$oDb->quote( $this->getId() ).' AND g2p.oxgroupid IN ('
                     . ' SELECT o2g.oxgroupsid FROM oxobject2group o2g '
-                    . ' WHERE o2g.oxshopid = '.$oDb->quote( agConfig::getInstance()->getShopId() )
+                    . ' WHERE o2g.oxshopid = '.$oDb->quote( Registry::getConfig()->getShopId() )
                     . ' AND o2g.oxobjectid = '.$oDb->quote( $oUser->getId() )
                     . ') ORDER BY '.$field.' ASC LIMIT 0,1';
 
