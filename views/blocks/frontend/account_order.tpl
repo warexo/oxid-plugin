@@ -1,0 +1,5 @@
+[{if $oViewConf->isAggroExtranetActive() && $oViewConf->isAggroExtranetOrdersActive()}]
+[{agextranetpage route="accountorder" height="2500px"}]
+[{else}]
+[{$smarty.block.parent}]
+[{/if}]
