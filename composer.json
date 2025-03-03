@@ -13,9 +13,6 @@
     "oxid-esales/oxideshop-ce": "^7.0",
     "php": ">=8.0"
   },
-  "conflict": {
-    "oxid-esales/oxideshop-ce": "<7.0"
-  },
   "extra": {
     "oxideshop": {
       "target-directory": "warexo"
