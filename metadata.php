@@ -33,7 +33,7 @@ $aModule = array(
         \OxidEsales\Eshop\Core\Config::class => \Warexo\Core\Config::class
     ),
     'events'       => array(
-        'onActivate'   => 'WarexoInstaller::onActivate',
+        'onActivate'   => '\Warexo\Core\WarexoConnectorInstaller::onActivate',
     ),
     'controllers' => array(
         //installer
