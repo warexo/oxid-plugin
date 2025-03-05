@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Warexo\\": "../../../source/modules/warexo/src"
+      "Warexo\\": "src/"
     }
   },
   "scripts": {
