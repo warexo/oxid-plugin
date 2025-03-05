@@ -13,11 +13,6 @@
     "oxid-esales/oxideshop-ce": "^7.0",
     "php": ">=8.0"
   },
-  "extra": {
-    "oxideshop": {
-      "target-directory": "warexo"
-    }
-  },
   "autoload": {
     "psr-4": {
       "Warexo\\": "../../../source/modules/warexo/src"
