@@ -204,7 +204,7 @@ class ShopControl extends ShopControl_parent
             $stoken = Registry::getSession()->getSessionChallengeToken();
             $_GET['stoken'] = $stoken;
             $_POST['stoken'] = $stoken;
-            $myConfig = $this->getConfig();
+            $myConfig = Registry::getConfig();
             if (Registry::get(Request::class)->getRequestParameter("admfields"))
                 $this->_aAdminFields = explode(",", base64_decode(Registry::get(Request::class)->getRequestParameter("admfields")));
             // creating current view object
@@ -226,7 +226,7 @@ class ShopControl extends ShopControl_parent
             $oViewObject->init();
             return $oViewObject;
         }
-        $oConf = $this->getConfig();
+        $oConf = Registry::getConfig();
 
         if (!$this->isAdmin())
             return parent::initializeViewObject($sClass, $sFunction, $aParams, $aViewsChain);

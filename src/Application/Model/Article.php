@@ -129,7 +129,7 @@ class Article extends Article_parent
         return self::$_blHasAmountPrice;
     }
 
-    protected function getVarMinPrice()
+    public function getVarMinPrice()
     {
         $dVarMinPrice = parent::getVarMinPrice();
         $dGroupPrice = $this->getVarMinGroupPrice();
