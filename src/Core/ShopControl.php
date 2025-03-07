@@ -55,7 +55,7 @@ class ShopControl extends ShopControl_parent
     );
 
     protected $_blAdminWidget = false;
-    protected $_aAdminFields = null;
+    protected $_aAdminFields = [];
 
     public function aggrowawi_autoload($sClass){
 
@@ -71,11 +71,13 @@ class ShopControl extends ShopControl_parent
         $sOutput = parent::render($oViewObject);
         if ($this->_blAdminWidget)
         {
+            $this->setAdminMode(true);
             $oConf = Registry::getConfig();
             $sSearch = "</body>";
             $css = '<link rel="stylesheet" href="'.$oConf->getSslShopUrl()."out/admin_twig/src/wawi.css?5".'" />';
             $oRenderer = ContainerFacade::get(TemplateRendererBridgeInterface::class)->getTemplateRenderer();
-            if (strpos(Registry::get(Request::class)->getRequestParameter("cl", "agcms_list")) === FALSE)
+            $script = '';
+            if (strpos(Registry::get(Request::class)->getRequestParameter("cl"), "agcms_list") === FALSE && false)
                 $script = $oRenderer->renderTemplate("warexo_extracode.tpl", ['admfields' => $this->_aAdminFields, 'sadmfields'=>base64_encode(implode(",",$this->_aAdminFields))]);
             $sReplace = $css.$script."</body>";
             $sOutput = ltrim($sOutput);

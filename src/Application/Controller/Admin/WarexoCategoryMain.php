@@ -9,6 +9,6 @@ class WarexoCategoryMain extends CategoryMain
     public function render()
     {
         parent::render();
-        return "warexo_attribute_category";
+        return "@warexo/warexo_category_main";
     }
 }

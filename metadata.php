@@ -7,7 +7,7 @@ $aModule = array(
     'title'        => 'Warexo Extension',
     'description'  => 'Warexo Extension',
     'thumbnail'    => '',
-    'version'      => '1.0.6',
+    'version'      => '1.0.7',
     'author'       => 'Aggrosoft',
     'extend'      => array(
         \OxidEsales\Eshop\Application\Model\Order::class => \Warexo\Application\Model\Order::class,
@@ -36,7 +36,7 @@ $aModule = array(
     'controllers' => array(
         //installer
         'wawi_article_extend' => \Warexo\Application\Controller\Admin\WarexoArticleExtend::class,
-        'wawi_category_main' => \Warexo\Application\Controller\Admin\WarexoCategoryName::class,
+        'wawi_category_main' => \Warexo\Application\Controller\Admin\WarexoCategoryMain::class,
         'wawi_user_extend' => \Warexo\Application\Controller\Admin\WarexoUserExtend::class,
         'wawi_discount_main' => \Warexo\Application\Controller\Admin\WarexoDiscountMain::class,
         'wawi_attribute_category' => \Warexo\Application\Controller\Admin\WarexoAttributeCategory::class,

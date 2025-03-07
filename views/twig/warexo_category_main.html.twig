@@ -1,0 +1,150 @@
+{% include "headitem.html.twig" with {title: "GENERAL_ADMIN_TITLE"|translate} %}
+
+<script type="text/javascript">
+    <!--
+    function SchnellSortManager(oObj)
+    {   oRadio = document.getElementsByName("editval[oxcategories__oxdefsortmode]");
+        if(oObj.value)
+            for ( i=0; i<oRadio.length; i++)
+                oRadio.item(i).disabled="";
+        else
+            for ( i=0; i<oRadio.length; i++)
+                oRadio.item(i).disabled = true;
+    }
+
+    function DeletePic( sField )
+    {
+        var oForm = document.getElementById("myedit");
+        oForm.fnc.value="deletePicture";
+        oForm.masterPicField.value=sField;
+        oForm.submit();
+    }
+
+    function LockAssignment(obj)
+    {   var aButton = document.myedit.assignArticle;
+        if ( aButton != null && obj != null )
+        {
+            if (obj.value > 0)
+            {
+                aButton.disabled = true;
+            }
+            else
+            {
+                aButton.disabled = false;
+            }
+        }
+    }
+    //-->
+</script>
+<!-- END add to *.css file -->
+<form name="transfer" id="transfer" action="{{ oViewConf.getSelfLink()|raw }}" method="post">
+    {{ oViewConf.getHiddenSid()|raw }}
+    <input type="hidden" name="oxid" id="oxid" value="{{ oxid }}">
+    <input type="hidden" name="cl" value="warexo_category_main">
+    <input type="hidden" name="editlanguage" value="{{ editlanguage }}">
+</form>
+
+{% if readonly %}
+    {% set readonly = "readonly disabled" %}
+{% else %}
+    {% set readonly = "" %}
+{% endif %}
+
+{% if readonly_fields %}
+    {% set readonly_fields = "readonly disabled" %}
+{% else %}
+    {% set readonly_fields = "" %}
+{% endif %}
+
+<form name="myedit" id="myedit" enctype="multipart/form-data" action="{{ oViewConf.getSelfLink()|raw }}" method="post">
+    <input type="hidden" name="MAX_FILE_SIZE" value="{{ iMaxUploadFileSize }}">
+    {{ oViewConf.getHiddenSid()|raw }}
+    <input type="hidden" name="cl" value="warexo_category_main">
+    <input type="hidden" name="fnc" value="">
+    <input type="hidden" name="oxid" value="{{ oxid }}">
+    <input type="hidden" name="editval[oxcategories__oxid]" value="{{ oxid }}">
+    <input type="hidden" name="masterPicField" value="">
+
+    {% if oViewConf.isAltImageServerConfigured() %}
+        <div class="warning">{{ translate({ ident: "ALTERNATIVE_IMAGE_SERVER_NOTE" }) }} {% include "inputhelp.html.twig" with {'sHelpId': help_id("HELP_ALTERNATIVE_IMAGE_SERVER_NOTE"), 'sHelpText': help_text("HELP_ALTERNATIVE_IMAGE_SERVER_NOTE")} %}</div>
+    {% endif %}
+
+    <table cellspacing="0" cellpadding="0" border="0" width="98%">
+        <tr>
+            <td valign="top" class="edittext">
+
+                <table cellspacing="0" cellpadding="0" border="0">
+                    {% block admin_category_main_form %}
+                        <input type="hidden" value="{{ edit.oxcategories__oxactive.value }}" name="editval[oxcategories__oxactive]">
+                        <input type="hidden" value="{{ edit.oxcategories__oxhidden.value }}" name="editval[oxcategories__oxhidden]">
+
+                        <tr>
+                            <td class="edittext">
+                                {{ translate({ ident: "CATEGORY_MAIN_TEMPLATE" }) }}
+                            </td>
+                            <td class="edittext" colspan="2">
+                                <input type="text" class="editinput" size="42" maxlength="{{ edit.oxcategories__oxtemplate.fldmax_length }}" name="editval[oxcategories__oxtemplate]" value="{{ edit.oxcategories__oxtemplate.value }}" {% include "help.html.twig" with {helpid: "article_template"} %} {{ readonly }}>
+                                {% include "inputhelp.html.twig" with {'sHelpId': help_id("HELP_CATEGORY_MAIN_TEMPLATE"), 'sHelpText': help_text("HELP_CATEGORY_MAIN_TEMPLATE")} %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="edittext">
+                                {{ translate({ ident: "CATEGORY_MAIN_DEFSORT" }) }}
+                            </td>
+                            <td class="edittext" colspan="2">
+                                <select name="editval[oxcategories__oxdefsort]" class="editinput" onChange="JavaScript:SchnellSortManager(this);">
+                                    <option value="">{{ translate({ ident: "CATEGORY_MAIN_NONE" }) }}</option>
+                                    {% for field, desc in sortableFields %}
+                                        {% set ident = 'GENERAL_ARTICLE_' ~ desc %}
+                                        {% set ident = ident|upper %}
+                                        <option value="{{ desc }}" {% if defsort == desc %}SELECTED{% endif %}>{{ translate({ ident: ident })|truncate(20, '..', true) }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="radio" class="editinput" name="editval[oxcategories__oxdefsortmode]" {% if not defsort %}disabled{% endif %} value="0" {% if edit.oxcategories__oxdefsortmode.value=="0" %}checked{% endif %}>{{ translate({ ident: "CATEGORY_MAIN_ASC" }) }}
+                                <input type="radio" class="editinput" name="editval[oxcategories__oxdefsortmode]" {% if not defsort %}disabled{% endif %} value="1" {% if edit.oxcategories__oxdefsortmode.value=="1" %}checked{% endif %}>{{ translate({ ident: "CATEGORY_MAIN_DESC" }) }}
+                                {% include "inputhelp.html.twig" with {'sHelpId': help_id("HELP_CATEGORY_MAIN_DEFSORT"), 'sHelpText': help_text("HELP_CATEGORY_MAIN_DEFSORT")} %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="edittext">
+                                {{ translate({ ident: "CATEGORY_MAIN_PRICEFROMTILL" }) }} ({{ oActCur.sign }})
+                            </td>
+                            <td class="edittext" colspan="2">
+                                <input type="text" class="editinput" size="5" maxlength="{{ edit.oxcategories__oxpricefrom.fldmax_length }}" name="editval[oxcategories__oxpricefrom]" value="{{ edit.oxcategories__oxpricefrom.value }}" {{ readonly }}>&nbsp;
+                                <input type="text" class="editinput" size="5" maxlength="{{ edit.oxcategories__oxpriceto.fldmax_length }}" name="editval[oxcategories__oxpriceto]" value="{{ edit.oxcategories__oxpriceto.value }}" onchange="JavaScript:LockAssignment(this);" onkeyup="JavaScript:LockAssignment(this);" onmouseout="JavaScript:LockAssignment(this);" {{ readonly }}>
+                                {% include "inputhelp.html.twig" with {'sHelpId': help_id("HELP_CATEGORY_MAIN_PRICEFROMTILL"), 'sHelpText': help_text("HELP_CATEGORY_MAIN_PRICEFROMTILL")} %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="edittext">
+                                {{ translate({ ident: "CATEGORY_MAIN_SKIPDISCOUNTS" }) }}
+                            </td>
+                            <td class="edittext" colspan="2">
+                                <input type="hidden" name="editval[oxcategories__oxskipdiscounts]" value='0' {{ readonly_fields }}>
+                                <input class="edittext" type="checkbox" name="editval[oxcategories__oxskipdiscounts]" value='1' {% if edit.oxcategories__oxskipdiscounts.value == 1 %}checked{% endif %} {{ readonly_fields }}>
+                                {% include "inputhelp.html.twig" with {'sHelpId': help_id("HELP_CATEGORY_MAIN_SKIPDISCOUNTS"), 'sHelpText': help_text("HELP_CATEGORY_MAIN_SKIPDISCOUNTS")} %}
+                            </td>
+                        </tr>
+                    {% endblock %}
+                    <tr>
+                        <td class="edittext">
+                        </td>
+                        <td class="edittext" colspan="2"><br>
+                            <input type="submit" class="edittext" name="save" value="{{ translate({ ident: "CATEGORY_MAIN_SAVE" }) }}" onClick="Javascript:document.myedit.fnc.value='save'" {{ readonly }}><br>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+
+            </td>
+        </tr>
+    </table>
+
+</form>
+{% include "bottomnaviitem.html.twig" %}
+
+{% include "bottomitem.html.twig" %}

@@ -14,6 +14,6 @@ class WarexoArticleExtend extends ArticleExtend
     public function render()
     {
         parent::render();
-        return "warexo_article_extend";
+        return "@warexo/warexo_article_extend";
     }
 }

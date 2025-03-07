@@ -14,6 +14,6 @@ class WarexoDiscountMain extends DiscountMain
     public function render()
     {
         parent::render();
-        return "warexo_discount_main";
+        return "warexo_discount_main.tpl";
     }
 }
