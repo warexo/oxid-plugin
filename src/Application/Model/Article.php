@@ -8,6 +8,7 @@ use OxidEsales\Eshop\Application\Model\Discount;
 use OxidEsales\Eshop\Application\Model\Voucher;
 use OxidEsales\Eshop\Application\Model\VatSelector;
 use OxidEsales\Eshop\Application\Model\CountryList;
+use Warexo\Core\SettingsHelper;
 
 class Article extends Article_parent
 {
@@ -138,8 +139,9 @@ class Article extends Article_parent
         {
             $this->_dVarMinPrice = $dGroupPrice;
         }
-
-        return $this->_dVarMinPrice;
+        $oPrice = $this->getPriceObject();
+        $oPrice->setPrice($this->_dVarMinPrice);
+        return $oPrice;
     }
 
     /**
@@ -187,7 +189,7 @@ class Article extends Article_parent
         {
             if ($this->wrxVisible)
                 return true;
-            $id = DatabaseProvider::getDb()->getOne("select id from wawitokens where id=".oxDb::getDb()->quote(Registry::get(\OxidEsales\Eshop\Core\Request::class)->getRequestParameter("wrxpreviewtoken"))." and expired > now()");
+            $id = DatabaseProvider::getDb()->getOne("select id from wawitokens where id=".DatabaseProvider::getDb()->quote(Registry::get(\OxidEsales\Eshop\Core\Request::class)->getRequestParameter("wrxpreviewtoken"))." and expired > now()");
             if ($id)
             {
                 $this->wrxVisible = true;
@@ -198,11 +200,11 @@ class Article extends Article_parent
             && !Registry::getConfig()->getConfigParam('wawiNotHideArticleWithGroups'))
         {
             $sTable = $this->getViewName( $blForceCoreTable );
-            $sOxid = DatabaseProvider::getDb()->getOne( "SELECT oxid FROM $sTable WHERE oxid = ".oxDb::getDb()->quote($this->getId())." and " . $this->getSqlActiveSnippet());
+            $sOxid = DatabaseProvider::getDb()->getOne( "SELECT oxid FROM $sTable WHERE oxid = ".DatabaseProvider::getDb()->quote($this->getId())." and " . $this->getSqlActiveSnippet());
             if(!$sOxid)
             {
                 if ($this->oxarticles__oxhidden->value)
-                    $sOxid = DatabaseProvider::getDb()->getOne("SELECT oxid FROM $sTable WHERE oxid = ".oxDb::getDb()->quote($this->getId()));
+                    $sOxid = DatabaseProvider::getDb()->getOne("SELECT oxid FROM $sTable WHERE oxid = ".DatabaseProvider::getDb()->quote($this->getId()));
                 if(!$sOxid)
                     $blIsVisible = false;
 
@@ -313,6 +315,13 @@ class Article extends Article_parent
         }
     }
 
+    protected $_aPersistParam = [];
+
+    public function getPersParams()
+    {
+        return $this->_aPersistParam;
+    }
+
     public function setPersParam($aPersParam)
     {
         $this->_aPersistParam = $aPersParam;
@@ -340,7 +349,7 @@ class Article extends Article_parent
         {
             $price = parent::getBasketPrice( $dAmount, $aSelList, $oBasket );
             $oConf = Registry::getConfig();
-            if ($oConf->getShopConfVar('wawiuseoss') && $oConf->getShopConfVar('wawiusenettofoross') && date('Y-m-d') >= '2021-07-01' &&
+            if (SettingsHelper::getBool('warexo', 'wawiuseoss') && SettingsHelper::getBool('warexo', 'wawiusenettofoross') && date('Y-m-d') >= '2021-07-01' &&
                 $price && !$price->isNettoMode())
             {
                 $vatselector = Registry::get(VatSelector::class);
@@ -363,7 +372,7 @@ class Article extends Article_parent
 
     public function getOSSPriceTable()
     {
-        $oDb = oxDb::getDb();
+        $oDb = DatabaseProvider::getDb();
         $oCountryList = oxNew(CountryList::class);
         $oCountryList->selectString("select * from oxcountry where oxactive=1 and oxvatstatus=1");
         $arr = array();
@@ -414,7 +423,7 @@ class Article extends Article_parent
         {
             $price = parent::getPrice( $dAmount );
             $oConf = Registry::getConfig();
-            if ($oConf->getShopConfVar('wawiuseoss') && $oConf->getShopConfVar('wawiusenettofoross') && date('Y-m-d') >= '2021-07-01' &&
+            if (SettingsHelper::getBool('warexo', 'wawiuseoss') && SettingsHelper::getBool('warexo', 'wawiusenettofoross') && date('Y-m-d') >= '2021-07-01' &&
                 $price && !$price->isNettoMode() && !$this->wawiDisableOss)
             {
                 $vatselector = Registry::get(VatSelector::class);;

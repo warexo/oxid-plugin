@@ -16,14 +16,14 @@ class Config extends Config_parent
             $ret = parent::getConfigParam($sName);
 
         //if b2b config param
-        if ($sName == "blShowNetPrice" && $this->getShopConfVar('wawishownetpriceforgroups'))
+        if ($sName == "blShowNetPrice" && SettingsHelper::getBool('warexo', 'wawishownetpriceforgroups'))
         {
             if ($this->wwShowNetPrice())
             {
                 return true;
             }
         }
-        if ($sName == "blEnterNetPrice" && $this->getShopConfVar('wawienternetpriceforgroups'))
+        if ($sName == "blEnterNetPrice" && SettingsHelper::getBool('warexo','wawienternetpriceforgroups'))
         {
             if ($this->wwShowNetPrice())
             {

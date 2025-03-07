@@ -6,6 +6,7 @@ use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Request;
 use OxidEsales\Eshop\Core\UtilsView;
+use OxidEsales\Eshop\Core\UtilsServer;
 
 class ShopControl extends ShopControl_parent
 {
@@ -88,7 +89,7 @@ class ShopControl extends ShopControl_parent
         if (!$this->getUser() && @$_COOKIE['wrxextranet'])
         {
             $oConf = Registry::getConfig();
-            $aggrowawiurl = $oConf->getShopConfVar('extraneturl', null, 'module:aggrowawi');
+            $aggrowawiurl = SettingsHelper::getString('warexo', 'extraneturl');
             $sSearch = "</body>";
             $sOutput = ltrim($sOutput);
             if (($pos = stripos( $sOutput, $sSearch )) !== false)
@@ -106,9 +107,9 @@ class ShopControl extends ShopControl_parent
     protected function setAgentCookies()
     {
         $oConf = Registry::getConfig();
-        if ($oConf->getShopConfVar("wawiagentparameters"))
+        if (SettingsHelper::getArray('warexo', 'wawiagentparameters'))
         {
-            $agentParameters = $oConf->getShopConfVar("wawiagentparameters");
+            $agentParameters = SettingsHelper::getArray('warexo', 'wawiagentparameters');
             $all = "";
             foreach ($_GET as $key=>$val)
             {
@@ -130,19 +131,17 @@ class ShopControl extends ShopControl_parent
 
     protected function process( $sClass, $sFunction, $aParams = null, $aViewsChain = null )
     {
-        spl_autoload_register(array($this,'aggrowawi_autoload'));
+        //spl_autoload_register(array($this,'aggrowawi_autoload'));
         $oConf = Registry::getConfig();
         $this->setAgentCookies();
         return parent::process($sClass, $sFunction, $aParams, $aViewsChain);
     }
 
-    protected function initializeViewObject($sClass, $sFunction, $aParams = null, $aViewsChain = null)
+    protected function resolveControllerClass($controllerKey)
     {
-        if ($this->isAdmin() && Registry::getSession()->getVariable("auth2"))
-            Registry::getSession()->setVariable("auth", Registry::getSession()->getVariable("auth2"));
-        if ($this->isAdmin() && strpos($sClass,"adminwidget") === 0)
+        if ($this->isAdmin() && strpos($controllerKey,"adminwidget") === 0)
         {
-            $arr = explode(":",$sClass);
+            $arr = explode(":",$controllerKey);
             if (count($arr) > 1)
                 $controller = $arr[1];
             else
@@ -207,6 +206,18 @@ class ShopControl extends ShopControl_parent
             $myConfig = Registry::getConfig();
             if (Registry::get(Request::class)->getRequestParameter("admfields"))
                 $this->_aAdminFields = explode(",", base64_decode(Registry::get(Request::class)->getRequestParameter("admfields")));
+            return parent::resolveControllerClass($controller);
+        }
+        return parent::resolveControllerClass($controllerKey);
+    }
+
+    protected function initializeViewObject($sClass, $sFunction, $aParams = null, $aViewsChain = null)
+    {
+        if ($this->isAdmin() && Registry::getSession()->getVariable("auth2"))
+            Registry::getSession()->setVariable("auth", Registry::getSession()->getVariable("auth2"));
+        if ($this->isAdmin() && strpos($sClass,"adminwidget") === 0)
+        {
+
             // creating current view object
             if (method_exists($this, "getControllerClass") && strpos($controller, "\\") === FALSE)
             {
@@ -260,7 +271,7 @@ class ShopControl extends ShopControl_parent
                 $oBasket->load();
                 $oBasket->calculateBasket(true);
                 Registry::getSession()->setVariable("basket", serialize($oBasket));
-                $oUser->oxuser__wwupdatebasket = new oxField(0);
+                $oUser->oxuser__wwupdatebasket = new \OxidEsales\Eshop\Core\Field(0);
                 $oUser->save();
                 Registry::getSession()->freeze();
 

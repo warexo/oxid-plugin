@@ -65,24 +65,24 @@ class User extends User_parent
         );
         foreach ($fields as $field)
             $this->wwSavedFields[$field] = $this->{$field}->value;
-        $this->oxuser__oxcompany = new oxField('-');
-        $this->oxuser__oxfname = new oxField('-');
-        $this->oxuser__oxlname = new oxField('-');
-        $this->oxuser__oxaddinfo = new oxField('-');
-        $this->oxuser__oxstreet = new oxField('-');
-        $this->oxuser__oxstreetnr = new oxField('-');
-        $this->oxuser__oxzip = new oxField('-');
-        $this->oxuser__oxcity = new oxField('-');
-        $this->oxuser__oxcountryid = new oxField('-');
-        $this->oxuser__oxfon = new oxField('-');
-        $this->oxuser__oxfax = new oxField('-');
-        $this->oxuser__oxpassword = new oxField(uniqid());
-        $this->oxuser__oxustid = new oxField('-');
-        $this->oxuser__oxactive = new oxField(0);
-        $this->oxuser__oxprivfon = new oxField('-');
-        $this->oxuser__oxurl = new oxField('-');
-        $this->oxuser__oxusername = new oxField('~deleted@@'.uniqid());
-        $this->oxuser__wwdeleted = new oxField(1);
+        $this->oxuser__oxcompany = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxfname = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxlname = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxaddinfo = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxstreet = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxstreetnr = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxzip = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxcity = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxcountryid = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxfon = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxfax = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxpassword = new \OxidEsales\Eshop\Core\Field(uniqid());
+        $this->oxuser__oxustid = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxactive = new \OxidEsales\Eshop\Core\Field(0);
+        $this->oxuser__oxprivfon = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxurl = new \OxidEsales\Eshop\Core\Field('-');
+        $this->oxuser__oxusername = new \OxidEsales\Eshop\Core\Field('~deleted@@'.uniqid());
+        $this->oxuser__wwdeleted = new \OxidEsales\Eshop\Core\Field(1);
         $this->save();
         $this->wwuserdeleted = true;
         return true;
@@ -123,13 +123,13 @@ class User extends User_parent
         {
             $this->setId('');
             foreach ($this->wwSavedFields as $field=>$value)
-                $this->{$field} = new oxField($value);
+                $this->{$field} = new \OxidEsales\Eshop\Core\Field($value);
         }
         $res = parent::save();
         if ($this->wwuserdeleted)
         {
             $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
-            $this->oxuser__oxrights = new oxField('user');
+            $this->oxuser__oxrights = new \OxidEsales\Eshop\Core\Field('user');
             $oDb->execute("update oxuser set oxrights='user' where oxid=".$oDb->quote($this->getId()));
             $this->wwuserdeleted = false;
         }

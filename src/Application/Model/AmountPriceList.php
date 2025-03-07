@@ -22,7 +22,7 @@ class AmountPriceList extends AmountPriceList_parent
 
         if ($oUser)
         {
-            $oDb = oxDb::getDb();
+            $oDb = DatabaseProvider::getDb();
 
             $sGroupSelect = ' AND ( oxgroupsid = "" or oxgroupsid IS NULL or oxgroupsid IN ('
                 . ' SELECT o2g.oxgroupsid FROM oxobject2group o2g '

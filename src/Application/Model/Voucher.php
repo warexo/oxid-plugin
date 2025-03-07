@@ -21,8 +21,9 @@ class Voucher extends Voucher_parent
         $oRet = null;
         if (!is_null($sVoucherNr))
         {
-            $sViewName = $this->getViewName();
+
             $tableViewNameGenerator = oxNew(TableViewNameGenerator::class);
+            $sViewName = $tableViewNameGenerator->getViewName('oxvouchers');
             $sSeriesViewName = $tableViewNameGenerator->getViewName('oxvoucherseries');
             $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
 

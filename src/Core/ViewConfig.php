@@ -11,30 +11,30 @@ class ViewConfig extends ViewConfig_parent
     public function isAggroExtranetActive()
     {
         $oConfig = Registry::getConfig();
-        return $oConfig->getShopConfVar('extranetactive', null, 'module:warexo');
+        return SettingsHelper::getBool('warexo', 'extranetactive');
     }
 
     public function isAggroExtranetOrdersActive()
     {
         $oConfig = Registry::getConfig();
-        return $oConfig->getShopConfVar('extranetordersactive', null, 'module:warexo');
+        return SettingsHelper::getBool('warexo', 'extranetordersactive');
     }
 
     public function isAggroExtranetTicketsActive()
     {
         $oConfig = Registry::getConfig();
-        return $oConfig->getShopConfVar('extranetticketsactive', null, 'module:warexo');
+        return SettingsHelper::getBool('warexo', 'extranetticketsactive');
     }
 
     public function isAggroExtranetLicensesActive()
     {
         $oConfig = Registry::getConfig();
-        return $oConfig->getShopConfVar('extranetlicensesactive', null, 'module:warexo');
+        return SettingsHelper::getBool('warexo', 'extranetlicensesactive');
     }
 
     public function isAggroExtranetSubscriptionContractsActive()
     {
         $oConfig = Registry::getConfig();
-        return $oConfig->getShopConfVar('extranetsubscriptioncontractsactive', null, 'module:warexo');
+        return SettingsHelper::getBool('warexo', 'extranetsubscriptioncontractsactive');
     }
 }

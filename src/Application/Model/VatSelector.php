@@ -5,6 +5,7 @@ namespace Warexo\Application\Model;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Application\Model\Country;
+use Warexo\Core\SettingsHelper;
 
 class VatSelector extends VatSelector_parent
 {
@@ -101,7 +102,8 @@ class VatSelector extends VatSelector_parent
                     return 0;
             }
         }
-        if ($this->wawiDisableOss || !$oConf->getShopConfVar('wawiuseoss') || date('Y-m-d') < '2021-07-01')
+        //echo "Ok";
+        if ($this->wawiDisableOss || !SettingsHelper::getBool('warexo', 'wawiuseoss') || date('Y-m-d') < '2021-07-01')
             return $vat;
         if ($oUser = Registry::getSession()->getBasket()->getBasketUser())
         {

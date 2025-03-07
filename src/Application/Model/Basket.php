@@ -81,8 +81,8 @@ class Basket extends Basket_parent
         if (\OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('bl_showVouchers') && ($this->_oVoucherDiscount === null || ($this->_blUpdateNeeded && !$this->isAdmin())))
         {
 
-            $this->_oVoucherDiscount = $this->_getPriceObject();
-            $this->_oGiftedVoucherDiscount = $this->_getPriceObject();
+            $this->_oVoucherDiscount = $this->getPriceObject();
+            $this->_oGiftedVoucherDiscount = $this->getPriceObject();
 
             // calculating price to apply discount
             $dPrice = $this->_oDiscountProductsPriceList->getSum($this->isCalculationModeNetto()) - $this->_oTotalDiscount->getPrice();

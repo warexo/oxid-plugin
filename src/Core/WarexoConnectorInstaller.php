@@ -2,13 +2,21 @@
 
 namespace Warexo\Core;
 
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class WarexoConnectorInstaller
 {
     public static function onActivate(){
-        $myConfig = oxRegistry::getConfig();
-
+        $myConfig = Registry::getConfig();
+        if (!file_exists(getShopBasePath().'wawi'))
+            mkdir(getShopBasePath().'wawi');
+        foreach (glob(getShopBasePath().'../vendor/aggrosoft/oxid-warexo/wawi/*') as $file)
+            copy($file, getShopBasePath().'wawi/'.basename($file));
+        if (!file_exists(getShopBasePath().'agcore'))
+            mkdir(getShopBasePath().'agcore');
+        foreach (glob(getShopBasePath().'../vendor/aggrosoft/oxid-warexo/agcore/*') as $file)
+            copy($file, getShopBasePath().'agcore/'.basename($file));
         //execute sql
         self::performsql();
 
@@ -29,8 +37,8 @@ class WarexoConnectorInstaller
     {
         self::$aSQLs = array();
 
-        if(!file_exists(getShopBasePath().'modules/warexo/sql/install.sql')) return;
-        $sUpdateSQL = file_get_contents(getShopBasePath().'modules/warexo/sql/install.sql');
+        if(!file_exists(getShopBasePath().'../vendor/aggrosoft/oxid-warexo/sql/install.sql')) return;
+        $sUpdateSQL = file_get_contents(getShopBasePath().'../vendor/aggrosoft/oxid-warexo/sql/install.sql');
         $sUpdateSQL = trim(stripslashes($sUpdateSQL));
 
         $iLen = strlen($sUpdateSQL);
@@ -62,7 +70,7 @@ class WarexoConnectorInstaller
 
                         try {
                             $oDB->execute($sUpdateSQL);
-                        } catch (Exception $oExcp) {
+                        } catch (\Exception $oExcp) {
                             // catching exception ...
                             $blStop = true;
                         }
@@ -177,8 +185,8 @@ class WarexoConnectorInstaller
     }
 
     protected static function _resetPersistentCache() {
-        $oConfig = oxRegistry::getConfig();
-        $oUtils = oxRegistry::getUtils();
+        $oConfig = Registry::getConfig();
+        $oUtils = Registry::getUtils();
         $sCacheDir = $oUtils->getCacheFilePath(null, true);
         $aDir = glob($sCacheDir.'*');
         if(is_array($aDir)) {

@@ -11,16 +11,16 @@ class Order extends Order_parent
 
     public function save()
     {
-        $this->oxorder__wwpending = new oxField(1);
+        $this->oxorder__wwpending = new \OxidEsales\Eshop\Core\Field(1);
         if ($this->oxorder__oxtransstatus->rawValue == 'ERROR' || $this->oxorder__oxtransstatus->rawValue == 'NOT_FINISHED')
         {
             if (!$this->oxorder__wwuseragent->value && Registry::get(UtilsServer::class)->getServerVar('HTTP_USER_AGENT'))
             {
-                $this->oxorder__wwuseragent = new oxField(Registry::get(UtilsServer::class)->getServerVar('HTTP_USER_AGENT'));
+                $this->oxorder__wwuseragent = new \OxidEsales\Eshop\Core\Field(Registry::get(UtilsServer::class)->getServerVar('HTTP_USER_AGENT'));
             }
             if (@$_COOKIE['wwagentparameter'])
             {
-                $this->oxorder__wwagentparameter = new oxField($_COOKIE['wwagentparameter']);
+                $this->oxorder__wwagentparameter = new \OxidEsales\Eshop\Core\Field($_COOKIE['wwagentparameter']);
             }
         }
         $blRes = parent::save();
