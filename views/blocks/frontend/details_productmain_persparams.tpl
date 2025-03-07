@@ -8,7 +8,7 @@
 <div class="selectorsBox clear">
     <strong>[{oxmultilang ident="PAGE_DETAILS_PERSPARAM_VOUCHER_SEND_TO"}]</strong><br/>
     <div class="whom-send-row clear">
-        <input class="voucherchanger" id="vouchersendto1" type="radio" name="persparam[vouchersendto]" value="customer" [{if !$aPersParam || $aPersParam.vouchersendto == 'customer'}]checked="checked"[{/if}]>
+        <input class="voucherchanger" id="vouchersendto1"  type="radio" name="persparam[vouchersendto]" value="customer" [{if !$aPersParam || $aPersParam.vouchersendto == 'customer'}]checked="checked"[{/if}]>
         <label for="vouchersendto1">[{oxmultilang ident="PAGE_DETAILS_PERSPARAM_VOUCHER_SEND_TO_CUSTOMER"}]</label>
         
     </div>

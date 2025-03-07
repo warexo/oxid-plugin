@@ -19,6 +19,10 @@ class WarexoConnectorInstaller
             copy($file, getShopBasePath().'agcore/'.basename($file));
         foreach (glob(getShopBasePath().'../vendor/aggrosoft/oxid-warexo/out/admin/src/*') as $file)
             copy($file, getShopBasePath().'out/admin_twig/src/'.basename($file));
+        if (!file_exists(getShopBasePath().'uploads'))
+            mkdir(getShopBasePath().'uploads');
+        if (!file_exists(getShopBasePath().'uploads/cms'))
+            mkdir(getShopBasePath().'uploads/cms');
         //execute sql
         self::performsql();
 
