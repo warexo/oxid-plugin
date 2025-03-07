@@ -9,6 +9,6 @@ class WarexoAttributeCategory extends AttributeCategory
     public function render()
     {
         parent::render();
-        return "warexo_attribute_category.tpl";
+        return "@warexo/warexo_attribute_category";
     }
 }

@@ -1,5 +1,5 @@
 {% include "headitem.html.twig" with {title: "GENERAL_ADMIN_TITLE"|translate} %}
-
+<link rel="stylesheet" href="/out/admin_twig/src/wawi.css?5" />
 <script type="text/javascript">
     <!--
     function SchnellSortManager(oObj)
@@ -40,7 +40,7 @@
 <form name="transfer" id="transfer" action="{{ oViewConf.getSelfLink()|raw }}" method="post">
     {{ oViewConf.getHiddenSid()|raw }}
     <input type="hidden" name="oxid" id="oxid" value="{{ oxid }}">
-    <input type="hidden" name="cl" value="warexo_category_main">
+    <input type="hidden" name="cl" value="wawi_category_main">
     <input type="hidden" name="editlanguage" value="{{ editlanguage }}">
 </form>
 
@@ -59,7 +59,7 @@
 <form name="myedit" id="myedit" enctype="multipart/form-data" action="{{ oViewConf.getSelfLink()|raw }}" method="post">
     <input type="hidden" name="MAX_FILE_SIZE" value="{{ iMaxUploadFileSize }}">
     {{ oViewConf.getHiddenSid()|raw }}
-    <input type="hidden" name="cl" value="warexo_category_main">
+    <input type="hidden" name="cl" value="wawi_category_main">
     <input type="hidden" name="fnc" value="">
     <input type="hidden" name="oxid" value="{{ oxid }}">
     <input type="hidden" name="editval[oxcategories__oxid]" value="{{ oxid }}">
@@ -145,6 +145,7 @@
     </table>
 
 </form>
+
 {% include "bottomnaviitem.html.twig" %}
 
 {% include "bottomitem.html.twig" %}

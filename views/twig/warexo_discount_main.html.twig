@@ -1,0 +1,71 @@
+{% include "headitem.html.twig" with {title: "GENERAL_ADMIN_TITLE"|translate} %}
+<link rel="stylesheet" href="/out/admin_twig/src/wawi.css?5" />
+<script type="text/javascript">
+    <!--
+    function ChangeDiscountType(oObj)
+    {   var oHObj = document.getElementById("itmart");
+        var oDObj = document.getElementById("editval[oxdiscount__oxaddsum]");
+        if ( oDObj != null && oHObj != null && oObj != null)
+        {   if ( oObj.value == "itm")
+        {   oHObj.style.display = "";
+            oDObj.style.display = "none";
+        }
+        else
+        {   oHObj.style.display = "none";
+            oDObj.style.display = "";
+        }
+        }
+    }
+    window.onload = function ()
+    {
+        {% if updatelist == 1 %}
+        top.oxid.admin.updateList('{{ oxid }}');
+        {% endif %}
+        var oField = top.oxid.admin.getLockTarget();
+        top.oxid.admin.unlockSave();
+        oField.onchange = oField.onkeyup = oField.onmouseout = top.oxid.admin.unlockSave;
+    }
+    //-->
+</script>
+
+{% if readonly %}
+    {% set readonly = "readonly disabled" %}
+{% else %}
+    {% set readonly = "" %}
+{% endif %}
+
+<form name="transfer" id="transfer" action="{{ oViewConf.getSelfLink()|raw }}" method="post">
+    {{ oViewConf.getHiddenSid()|raw }}
+    <input type="hidden" name="oxid" value="{{ oxid }}">
+    <input type="hidden" name="oxidCopy" value="{{ oxid }}">
+    <input type="hidden" name="cl" value="wawi_discount_main">
+    <input type="hidden" name="language" value="{{ actlang }}">
+</form>
+
+<form name="myedit" id="myedit" action="{{ oViewConf.getSelfLink()|raw }}" method="post">
+    {{ oViewConf.getHiddenSid()|raw }}
+    <input type="hidden" name="cl" value="wawi_discount_main">
+    <input type="hidden" name="fnc" value="">
+    <input type="hidden" name="oxid" value="{{ oxid }}">
+    <input type="hidden" name="editval[oxdiscount__oxid]" value="{{ oxid }}">
+    <input type="hidden" name="language" value="{{ actlang }}">
+
+    <table cellspacing="0" cellpadding="0" border="0" width="98%">
+        <tr>
+            <td valign="top" class="edittext">
+
+                <table cellspacing="0" cellpadding="0" border="0">
+                    {% block admin_discount_main_form %}
+
+                    {% endblock %}
+
+                </table>
+            </td>
+
+        </tr>
+    </table>
+
+</form>
+
+{% include "bottomnaviitem.html.twig" %}
+{% include "bottomitem.html.twig" %}

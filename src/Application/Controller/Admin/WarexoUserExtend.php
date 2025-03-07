@@ -14,6 +14,6 @@ class WarexoUserExtend extends UserExtend
     public function render()
     {
         parent::render();
-        return "warexo_user_extend.tpl";
+        return "@warexo/warexo_user_extend";
     }
 }
