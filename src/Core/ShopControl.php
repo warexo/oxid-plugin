@@ -7,6 +7,8 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Request;
 use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\Eshop\Core\UtilsServer;
+use OxidEsales\EshopCommunity\Internal\Framework\Templating\TemplateRendererBridgeInterface;
+use OxidEsales\EshopCommunity\Core\Di\ContainerFacade;
 
 class ShopControl extends ShopControl_parent
 {
@@ -71,15 +73,10 @@ class ShopControl extends ShopControl_parent
         {
             $oConf = Registry::getConfig();
             $sSearch = "</body>";
-            $css = '<link rel="stylesheet" href="'.$oConf->getSslShopUrl()."modules/warexo/out/src/wawi.css?5".'" />';
-            $oSmarty = Registry::get(UtilsView::class)->getSmarty();
-            if ($this->_aAdminFields)
-            {
-                $oSmarty->assign('admfields', $this->_aAdminFields);
-                $oSmarty->assign('sadmfields',  base64_encode(implode(",",$this->_aAdminFields)));
-            }
+            $css = '<link rel="stylesheet" href="'.$oConf->getSslShopUrl()."out/admin_twig/src/wawi.css?5".'" />';
+            $oRenderer = ContainerFacade::get(TemplateRendererBridgeInterface::class)->getTemplateRenderer();
             if (strpos(Registry::get(Request::class)->getRequestParameter("cl", "agcms_list")) === FALSE)
-                $script = $oSmarty->fetch( getShopBasePath().'modules/warexo/out/src/extracode.tpl', md5(uniqid()) );
+                $script = $oRenderer->renderTemplate("warexo_extracode.tpl", ['admfields' => $this->_aAdminFields, 'sadmfields'=>base64_encode(implode(",",$this->_aAdminFields))]);
             $sReplace = $css.$script."</body>";
             $sOutput = ltrim($sOutput);
             if ( ($pos = stripos( $sOutput, $sSearch )) !== false) {

@@ -1,0 +1,71 @@
+/*body, td {
+  color: #333;
+  font-family: "Open Sans",Arial,Helvetica,sans-serif;
+  font-size: 13px;
+  line-height: 1.42857;
+}*/
+
+div.box {
+    border: none;
+    height: 100% !important;
+}
+.actions {
+    display: none;
+}
+
+.btnShowHelpPanel {
+    display: none;
+}
+input[type=button].btnShowHelpPanel {
+    display: none;
+}
+input[type=button],
+input[type=submit]{
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 4px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: #3276b1;
+    border-color: #2c699d;
+    color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.05) inset;
+}
+
+/*input, select, textarea {
+    color: #555;
+    border: 1px solid #ccc;
+    background: none;
+}
+
+input[type="text"], 
+textarea {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    box-shadow: none;
+    color: #555;
+    display: block;
+    font-size: 13px;
+    height: 32px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+}
+input[type="text"] {
+    padding: 0px 12px;
+}
+td.edittext {
+    padding: 0 0 10px 5px;
+}*/
+

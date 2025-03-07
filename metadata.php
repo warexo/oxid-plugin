@@ -7,7 +7,7 @@ $aModule = array(
     'title'        => 'Warexo Extension',
     'description'  => 'Warexo Extension',
     'thumbnail'    => '',
-    'version'      => '1.0.4',
+    'version'      => '1.0.5',
     'author'       => 'Aggrosoft',
     'extend'      => array(
         \OxidEsales\Eshop\Application\Model\Order::class => \Warexo\Application\Model\Order::class,
@@ -61,6 +61,7 @@ $aModule = array(
         'warexo_category_main.tpl' => 'warexo/views/admin/tpl/warexo_category_main.tpl',
         'warexo_discount_main.tpl' => 'warexo/views/admin/tpl/warexo_discount_main.tpl',
         'warexo_user_extend.tpl' => 'warexo/views/admin/tpl/warexo_user_extend.tpl',
+        'warexo_extracode.tpl' => 'warexo/views/admin/tpl/warexo_extracode.tpl',
     ),
     'settings' => array(
         array('group' => 'main', 'name' => 'extraneturl', 'type' => 'str'),
