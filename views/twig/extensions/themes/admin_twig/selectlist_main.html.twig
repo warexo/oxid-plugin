@@ -1,0 +1,12 @@
+{% extends 'selectlist_main.html.twig' %}
+{% block admin_selectlist_main_form %}
+    {% if edit.oxselectlist__oxid.value %}
+        <tr>
+            <td class="edittext" colspan="2">
+                <b>Oxid: {{edit.oxselectlist__oxid.value}}<br>
+                    <b>WAWI Id: {{edit.oxselectlist__wwforeignid.value}}
+            </td>
+        </tr>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}

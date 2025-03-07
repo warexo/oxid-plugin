@@ -1,0 +1,11 @@
+{% extends 'payment_main.html.twig' %}
+{% block admin_payment_main_form %}
+    {% if edit.oxpayments__oxid.value %}
+        <tr>
+            <td class="edittext" colspan="2">
+                <b>Oxid: {{edit.oxpayments__oxid.value}}
+            </td>
+        </tr>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}

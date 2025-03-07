@@ -39,7 +39,7 @@ class Basket extends Basket_parent
                     {
                         $sBasketUserId = $oBasketUser->getId();
                     }
-                    $oVoucher->getRestVoucherByNr($sVoucherId, $sBasketUserId, $this->_aVouchers, true);
+                    $oVoucher->getRestVoucherByNr($sVoucherId, $this->_aVouchers, true);
                 }
 
                 $oVoucher->checkVoucherAvailability($this->_aVouchers, $dPrice);

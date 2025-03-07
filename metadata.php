@@ -7,7 +7,7 @@ $aModule = array(
     'title'        => 'Warexo Extension',
     'description'  => 'Warexo Extension',
     'thumbnail'    => '',
-    'version'      => '1.0.8',
+    'version'      => '1.0.9',
     'author'       => 'Aggrosoft',
     'extend'      => array(
         \OxidEsales\Eshop\Application\Model\Order::class => \Warexo\Application\Model\Order::class,
@@ -55,13 +55,7 @@ $aModule = array(
         'account_licenses.tpl' => 'warexo/views/tpl/account_licenses.tpl',
         'account_customgrid.tpl' => 'warexo/views/tpl/account_customgrid.tpl',
         'account_subscription_contracts.tpl' => 'warexo/views/tpl/account_subscription_contracts.tpl',
-        'account_subscription_contract.tpl' => 'warexo/views/tpl/account_subscription_contract.tpl',
-        'warexo_article_extend.tpl' => 'warexo/views/admin/tpl/warexo_article_extend.tpl',
-        'warexo_attribute_category.tpl' => 'warexo/views/admin/tpl/warexo_attribute_category.tpl',
-        'warexo_category_main.tpl' => 'warexo/views/admin/tpl/warexo_category_main.tpl',
-        'warexo_discount_main.tpl' => 'warexo/views/admin/tpl/warexo_discount_main.tpl',
-        'warexo_user_extend.tpl' => 'warexo/views/admin/tpl/warexo_user_extend.tpl',
-        'warexo_extracode.tpl' => 'warexo/views/admin/tpl/warexo_extracode.tpl',
+        'account_subscription_contract.tpl' => 'warexo/views/tpl/account_subscription_contract.tpl'
     ),
     'settings' => array(
         array('group' => 'main', 'name' => 'extraneturl', 'type' => 'str'),
@@ -84,15 +78,8 @@ $aModule = array(
     'blocks' => array(    
         array('template' => 'page/details/inc/productmain.tpl', 'block'=>'details_productmain_persparams', 'file'=>'views/blocks/frontend/details_productmain_persparams.tpl'),
         array('template' => 'page/checkout/thankyou.tpl', 'block'=>'checkout_thankyou_info', 'file'=>'views/blocks/frontend/checkout_thankyou_info.tpl'),
-        array('template' => 'article_main.tpl', 'block'=>'admin_article_main_form','file'=>'views/blocks/admin/article_main.tpl'),
-        array('template' => 'include/category_main_form.tpl', 'block'=>'admin_category_main_form','file'=>'views/blocks/admin/category_main.tpl'),
-        array('template' => 'selectlist_main.tpl', 'block'=>'admin_selectlist_main_form','file'=>'views/blocks/admin/selectlist_main.tpl'),
-        array('template' => 'attribute_main.tpl', 'block'=>'admin_attribute_main_form','file'=>'views/blocks/admin/attribute_main.tpl'),
-        array('template' => 'manufacturer_main.tpl', 'block'=>'admin_manufacturer_main_form','file'=>'views/blocks/admin/manufacturer_main.tpl'),
-        array('template' => 'deliveryset_main.tpl', 'block'=>'admin_deliveryset_main_form','file'=>'views/blocks/admin/deliveryset_main.tpl'),
         array('template' => 'page/account/order.tpl', 'block'=>'account_order_history','file'=>'views/blocks/frontend/account_order.tpl'),
         array('template' => 'page/account/inc/account_menu.tpl', 'block'=>'account_menu','file'=>'views/blocks/frontend/account_menu.tpl'),
-        array('template' => 'page/account/dashboard.tpl', 'block'=>'account_dashboard_col1','file'=>'views/blocks/frontend/account_dashboard_col1.tpl'),
-        array('template' => 'user_main.tpl', 'block'=>'admin_user_main_form','file'=>'views/blocks/admin/user_main.tpl'),
+        array('template' => 'page/account/dashboard.tpl', 'block'=>'account_dashboard_col1','file'=>'views/blocks/frontend/account_dashboard_col1.tpl')
     )
 );

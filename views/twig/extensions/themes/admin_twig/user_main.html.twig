@@ -1,0 +1,19 @@
+{% extends 'user_main.html.twig' %}
+{% block admin_user_main_form %}
+    {% if edit.oxuser__oxid.value %}
+        <tr>
+            <td class="edittext" colspan="2">
+                <b>Oxid: {{edit.oxuser__oxid.value}}<br>
+                    <b>WAWI Id: {{edit.oxuser__wwforeignid.value}}
+            </td>
+        </tr>
+    {% endif %}
+    {% if edit.oxuser__wwcustomernumber.value %}
+        <tr>
+            <td class="edittext" colspan="2">
+                <b>Kundennummer in Warexo: {{edit.oxuser__wwcustomernumber.value}}</b>
+            </td>
+        </tr>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}

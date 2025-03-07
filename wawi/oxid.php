@@ -1581,9 +1581,9 @@ class OxidConnector extends OxidFieldsContainer implements IConnector
                 }
             }
         }
-        if (!$data->lang && $conf->getShopConfVar('wawiexportcrosssellings'))
+        if (!$data->lang && $this->getBoolSetting('wawiexportcrosssellings'))
             $oDb->execute("delete from oxobject2article where oxarticlenid=" . $oDb->quote($oArticle->getId()));
-        if (!$data->lang && $data->crosssellings && $conf->getShopConfVar('wawiexportcrosssellings')) {
+        if (!$data->lang && $data->crosssellings && $conf->getBoolSetting('wawiexportcrosssellings')) {
             $aAssign = array();
             foreach ($data->crosssellings as $crossselling) {
                 $oObject2Article = oxNew("oxbase");
@@ -1598,7 +1598,7 @@ class OxidConnector extends OxidFieldsContainer implements IConnector
                 }
             }
         }
-        if (!$data->lang && $data->accessories && $conf->getShopConfVar('wawiexportaccessories')) {
+        if (!$data->lang && $data->accessories && $this->getBoolSetting('wawiexportaccessories')) {
             if ($oArticle->getId())
                 $oDb->execute("delete from oxaccessoire2article where oxarticlenid=" . $oDb->quote($oArticle->getId()));
             $accsort = 0;
@@ -2702,7 +2702,7 @@ class OxidConnector extends OxidFieldsContainer implements IConnector
         $sortarr = array();
         //file_put_contents('log.txt',print_r($data,true),FILE_APPEND);
         $oConf = agConfig::getInstance();
-        if ($oConf->getShopConfVar('wawiexportparentcategories'))
+        if ($this->getBoolSetting('wawiexportparentcategories'))
             foreach ($data as $value) {
                 $cats = array();
                 foreach ($value->categories as $category) {
@@ -2839,7 +2839,7 @@ class OxidConnector extends OxidFieldsContainer implements IConnector
         }
         agUtilsCount::getInstance()->resetCatArticleCount($oCategory->getId());
         $oConf = agConfig::getInstance();
-        if ($parentid && $oConf->getShopConfVar('wawiexportparentcategories')) {
+        if ($parentid && $this->getBoolSetting('wawiexportparentcategories')) {
             $newdata = array();
             foreach ($data as $value) {
                 $obj = clone $value;
@@ -5902,6 +5902,24 @@ class OxidConnector extends OxidFieldsContainer implements IConnector
                 @unlink($filename);
             }
         }
+    }
+
+    public function getBoolSetting($name)
+    {
+        $moduleSettingService = \OxidEsales\EshopCommunity\Core\Di\ContainerFacade::get(\OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface::class);
+        return $moduleSettingService->getBoolean($name, 'warexo');
+    }
+
+    public function getStringSetting($name)
+    {
+        $moduleSettingService = \OxidEsales\EshopCommunity\Core\Di\ContainerFacade::get(\OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface::class);
+        return $moduleSettingService->getString($name, 'warexo');
+    }
+
+    public function getArraySetting($name)
+    {
+        $moduleSettingService = \OxidEsales\EshopCommunity\Core\Di\ContainerFacade::get(\OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface::class);
+        return $moduleSettingService->getCollection($name, 'warexo');
     }
 
 }

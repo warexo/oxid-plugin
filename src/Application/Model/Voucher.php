@@ -16,7 +16,7 @@ class Voucher extends Voucher_parent
      * @return oxVoucher
      * @throws oxVoucherException
      */
-    public function getVoucherByNr($sVoucherNr, $aVouchers = [], $blCheckavalability = false)
+    public function getRestVoucherByNr($sVoucherNr, $aVouchers = [], $blCheckavalability = false)
     {
         $oRet = null;
         if (!is_null($sVoucherNr))

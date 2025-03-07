@@ -25,6 +25,7 @@ class Config extends Config_parent
         }
         if ($sName == "blEnterNetPrice" && SettingsHelper::getBool('warexo','wawienternetpriceforgroups'))
         {
+
             if ($this->wwShowNetPrice())
             {
                 return true;
