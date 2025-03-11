@@ -20,6 +20,7 @@ class SettingsHelper
 
     public static function getArray($moduleId, $name)
     {
+        return [];
         $moduleSettingService = ContainerFacade::get(ModuleSettingServiceInterface::class);
         return $moduleSettingService->getCollection($name, $moduleId);
     }
