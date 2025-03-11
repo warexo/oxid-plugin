@@ -72,14 +72,13 @@ class Voucher extends Voucher_parent
         parent::markAsUsed($sOrderId,$sUserId,$dDiscount);
 
         $oSerie = $this->getSerie();
-        if ($oSerie->oxvoucherseries__oxdiscounttype->value == 'absolute' )
+        if ($oSerie && $oSerie->oxvoucherseries__oxdiscounttype->value == 'absolute' )
         {
             $dRestDiscount = $this->getRestDiscount($dDiscount);
             $this->oxvouchers__agrestvalue->setValue($dRestDiscount);
             $this->save();
             if ($dRestDiscount > 0)
                 $this->unMarkAsReserved();
-
         }
     }
 

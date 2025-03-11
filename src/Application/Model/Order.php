@@ -37,4 +37,9 @@ class Order extends Order_parent
         }
         return $blRes;
     }
+
+    public function validateVouchers($basket)
+    {
+
+    }
 }
