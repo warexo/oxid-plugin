@@ -132,7 +132,8 @@ class ShopControl extends ShopControl_parent
     {
         //spl_autoload_register(array($this,'aggrowawi_autoload'));
         $oConf = Registry::getConfig();
-        $this->setAgentCookies();
+        //if (!$this->isAdmin())
+        //    $this->setAgentCookies();
         return parent::process($sClass, $sFunction, $aParams, $aViewsChain);
     }
 

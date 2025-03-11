@@ -7,7 +7,7 @@ $aModule = array(
     'title'        => 'Warexo Extension',
     'description'  => 'Warexo Extension',
     'thumbnail'    => '',
-    'version'      => '1.0.13',
+    'version'      => '1.0.14',
     'author'       => 'Aggrosoft',
     'extend'      => array(
         \OxidEsales\Eshop\Application\Model\Order::class => \Warexo\Application\Model\Order::class,
@@ -66,7 +66,7 @@ $aModule = array(
         array('group' => 'main', 'name' => 'extranetdev', 'type' => 'bool', 'value' => 'false'),
         array('group' => 'main', 'name' => 'wawiexportparentcategories', 'type' => 'bool', 'value' => 'false'),
         array('group' => 'main', 'name' => 'extranetsubscriptioncontractsactive', 'type' => 'bool', 'value' => 'false'),
-        array('group' => 'main', 'name' => 'wawiagentparameters', 'type' => 'arr', 'value' => ''),
+        array('group' => 'main', 'name' => 'wawiagentparameters', 'type' => 'arr', 'value' => []),
         array('group' => 'main', 'name' => 'wawiexportaccessories', 'type' => 'bool', 'value' => 'false'),
         array('group' => 'main', 'name' => 'wawiexportcrosssellings', 'type' => 'bool', 'value' => 'false'),
         array('group' => 'main', 'name' => 'wawiusediscountaccessories', 'type' => 'bool', 'value' => 'false'),
