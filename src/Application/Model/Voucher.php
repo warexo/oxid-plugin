@@ -41,7 +41,7 @@ class Voucher extends Voucher_parent
 
             $sQ .= " {$sViewName}.agrestvalue > 0 ";
 
-            if ($blCheckavalability )
+            if ($blCheckavalability)
             {
                 $iTime = time() - 3600 * 3;
                 $sQ .= " and {$sViewName}.oxreserved < '{$iTime}' ";
@@ -49,7 +49,7 @@ class Voucher extends Voucher_parent
 
             $sQ .= " limit 1";
 
-
+            //echo $sQ; die();
             if (!($oRet = $this->assignRecord($sQ)))
             {
                 $oEx = oxNew(\OxidEsales\Eshop\Core\Exception\VoucherException::class);
@@ -58,7 +58,6 @@ class Voucher extends Voucher_parent
                 throw $oEx;
             }
         }
-
         return $oRet;
     }
 
@@ -117,7 +116,7 @@ class Voucher extends Voucher_parent
             }
             else
             {
-                $oCur = $this->getConfig()->getActShopCurrencyObject();
+                $oCur = \OxidEsales\Eshop\Core\Registry::getConfig()->getActShopCurrencyObject();
                 $dFullDiscount = $oSerie->oxvoucherseries__oxdiscount->value * $oCur->rate;
                 $dRestDiscount = $dFullDiscount - $dDiscount;
             }
